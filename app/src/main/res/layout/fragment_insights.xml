@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InsightsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:src="@drawable/insightsheader"/>
+
+    <ScrollView
+        android:layout_below="@id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/LL1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Education"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+
+            <Button
+                android:id="@+id/educ1Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/educ1"/>
+
+            <Button
+                android:id="@+id/educ2Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/educ2"/>
+            <Button
+                android:id="@+id/educ3Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/educ3"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Government ID’s Process Application"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/govid1Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/govid1"/>
+
+            <Button
+                android:id="@+id/govid2Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/govid2"/>
+            <Button
+                android:id="@+id/govid3Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/govid3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food Recipe"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/food1Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/food1"/>
+
+            <Button
+                android:id="@+id/food2Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/food2"/>
+            <Button
+                android:id="@+id/food3Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/food3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eco-Friendly Lifestyle"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+
+            <Button
+                android:id="@+id/eco1Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/eco1"/>
+
+            <Button
+                android:id="@+id/eco2Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/eco2"/>
+            <Button
+                android:id="@+id/eco3Btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="366dp"
+                android:layout_height="146dp"
+                android:layout_gravity="center"
+                android:background="@drawable/eco3"/>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

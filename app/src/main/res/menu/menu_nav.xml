@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_home"
+        android:title="Home"
+        android:icon="@drawable/homenavicon"/>
+    <item android:id="@+id/nav_insights"
+        android:title="Insights"
+        android:icon="@drawable/nav_insights"/>
+    <item android:id="@+id/nav_profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile_black"/>
+    <item android:id="@+id/nav_communiday"
+        android:title="CommuniDay"
+        android:icon="@drawable/nav_comnudayicon"/>
+
+    <item android:id="@+id/nav_users"
+        android:title="Users"
+        android:icon="@drawable/ic_users_black"/>
+
+
+</menu>

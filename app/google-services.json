@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "717998459933",
+    "project_id": "chandara-project",
+    "storage_bucket": "chandara-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717998459933:android:2d41fd77bbba328a208af4",
+        "android_client_info": {
+          "package_name": "com.jeysi.chandaraproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717998459933-enfpqh3tm5vhfp8hchjb013vld4oaeps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuGiWpuXMx3vMGh31TJXcEXS2NZSxrzrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717998459933-enfpqh3tm5vhfp8hchjb013vld4oaeps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
