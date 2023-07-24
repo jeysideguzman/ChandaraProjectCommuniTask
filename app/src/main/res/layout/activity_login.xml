@@ -5,15 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/appbkg"
-    android:padding="40dp"
     tools:context=".LoginActivity">
 
+
+
     <TextView
+        android:id="@+id/tvtt"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="40sp"
-        android:layout_above="@id/emailTIL"
         android:layout_marginBottom="40dp"
         android:text="Welcome \nLogin"
         android:layout_marginLeft="31dp"
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/tvtt"
         android:layout_centerVertical="true"
 
         android:id="@+id/emailTIL">
@@ -127,6 +130,13 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
+    <ImageView
+        android:layout_width="424dp"
+        android:layout_height="225dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-24dp"
+        android:layout_marginBottom="-25dp"
+        android:background="@drawable/handsbkg" />
 
 
 </RelativeLayout>

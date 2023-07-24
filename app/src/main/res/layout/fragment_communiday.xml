@@ -43,7 +43,7 @@
             <LinearLayout
                 android:id="@+id/tasksLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:orientation="vertical"
                 android:padding="16dp" />
 
@@ -60,7 +60,7 @@
             <LinearLayout
                 android:id="@+id/remindersLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="64dp"
                 android:orientation="vertical"
                 android:padding="16dp" />
 

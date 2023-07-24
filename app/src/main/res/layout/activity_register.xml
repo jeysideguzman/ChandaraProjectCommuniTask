@@ -5,17 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/appbkg"
-    android:padding="40dp"
     tools:context=".RegisterActivity">
 
+    <ImageView
+        android:id="@+id/imagehands"
+        android:layout_width="424dp"
+        android:layout_height="225dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/handsbkg" />
+
     <TextView
+        android:id="@+id/tvtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="40sp"
-        android:layout_above="@id/emailTIL"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="-40dp"
         android:text="Create \nAccount"
+        android:layout_below="@id/imagehands"
         android:layout_marginLeft="31dp"
         android:layout_marginStart="31dp"
         android:textColor="@color/black"/>
@@ -27,10 +34,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-
+        android:layout_below="@id/tvtext"
+        android:layout_marginTop="40dp"
         android:id="@+id/emailTIL">
 
         <EditText
+
             android:id="@+id/emailEt"
             android:inputType="textEmailAddress"
             android:hint="Email"
@@ -103,6 +112,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
+
 
 
 </RelativeLayout>
