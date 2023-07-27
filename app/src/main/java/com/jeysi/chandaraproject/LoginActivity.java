@@ -237,6 +237,8 @@ public class LoginActivity extends AppCompatActivity {
                             //signin success
                             FirebaseUser user = mAuth.getCurrentUser();
                             //user logged in
+                            //get dashboard in insights
+                            //try switch
                             startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                             finish();
                         } else {
