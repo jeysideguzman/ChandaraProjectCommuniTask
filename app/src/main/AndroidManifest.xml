@@ -21,6 +21,42 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".insightsact.eco3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.eco2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.eco1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.food3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.food2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.food1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.govid3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.govid2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.govid1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.educ3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.educ2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".insightsact.educ1Activity"
+            android:exported="false" />
+        <activity
             android:name=".Splash1Activity"
             android:exported="true" />
         <activity
