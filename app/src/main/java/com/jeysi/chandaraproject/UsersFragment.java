@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jeysi.chandaraproject.adapter.AdapterUser;
+import com.jeysi.chandaraproject.models.ModelUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +181,9 @@ public class UsersFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
         inflater.inflate(R.menu.menu_main, menu);
+
+        //hide addpost icon from this fragment
+        menu.findItem(R.id.action_addpost).setVisible(false);
 
         //search view
         MenuItem item = menu.findItem(R.id.action_search);

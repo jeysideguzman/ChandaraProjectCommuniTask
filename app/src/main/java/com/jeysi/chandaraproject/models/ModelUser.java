@@ -1,4 +1,4 @@
-package com.jeysi.chandaraproject;
+package com.jeysi.chandaraproject.models;
 
 public class ModelUser {
 
