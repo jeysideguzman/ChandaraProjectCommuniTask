@@ -64,13 +64,15 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:text="Title"/>
+            android:text="Title"
+            android:autoLink="all"/>
 
         <TextView
             android:id="@+id/pDescriptionTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:autoLink="all"
             android:text="The description of the post"/>
 
         <ImageView
