@@ -1,6 +1,7 @@
 package com.jeysi.chandaraproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jeysi.chandaraproject.R;
+import com.jeysi.chandaraproject.TheirProfileActivity;
 import com.jeysi.chandaraproject.models.ModelPost;
 import com.squareup.picasso.Picasso;
 
@@ -131,6 +134,15 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             }
         });
 
+        myHolder.profileLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TheirProfileActivity.class);
+                intent.putExtra("uid", uid);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -147,6 +159,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn, shareBtn;
+        LinearLayout profileLayout;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,6 +177,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             likeBtn = itemView.findViewById(R.id.likeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
             shareBtn = itemView.findViewById(R.id.shareBtn);
+            profileLayout = itemView.findViewById(R.id.profileLayout);
 
         }
     }

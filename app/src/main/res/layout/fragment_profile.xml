@@ -27,6 +27,7 @@
             </ImageView>
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="100dp"
@@ -37,13 +38,13 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_addimage"
                     android:layout_marginLeft="20dp"
-                    android:background="@android:color/holo_orange_light"
+                    android:background="#E48989"
                     android:layout_width="120dp"
                     android:layout_height="120dp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/darker_gray"
+                    android:background="#C86767"
                     android:orientation="vertical">
 
                     <TextView
@@ -74,6 +75,12 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_posts"
+                android:layout_below="@id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
         </RelativeLayout>
 

@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -49,10 +50,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jeysi.chandaraproject.adapter.AdapterPost;
+import com.jeysi.chandaraproject.models.ModelPost;
 import com.squareup.picasso.Picasso;
 
 import java.security.Key;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
@@ -69,6 +73,7 @@ public class ProfileFragment extends Fragment {
     ImageView avatarTv, coverTv;
     TextView nameTv, emailTv, phonenoTv;
     FloatingActionButton fab;
+    RecyclerView postRecyclerView;
     //progress dialog
     ProgressDialog pd;
     //permission constants
@@ -79,6 +84,11 @@ public class ProfileFragment extends Fragment {
     //ARRAYS PERMISSION
     String cameraPermissions[];
     String storagePermissions[];
+
+    List<ModelPost> postList;
+    AdapterPost adapterPost;
+    String uid;
+
     //uri of picked image
     Uri image_uri;
     //for checking profile or cove rpic
@@ -111,6 +121,7 @@ public class ProfileFragment extends Fragment {
         emailTv = view.findViewById(R.id.emailTv);
         phonenoTv = view.findViewById(R.id.phonenoTv);
         fab = view.findViewById(R.id.fab);
+        postRecyclerView = view.findViewById(R.id.recyclerview_posts);
 
         //init progress dialog
         pd = new ProgressDialog(getActivity());
@@ -493,11 +504,10 @@ public class ProfileFragment extends Fragment {
         //get user
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
-
             //user stay signed in
-
             //set email of logged in user
             //mProfileTv.setText(user.getEmail());
+            uid = user.getUid();
         } else {
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();

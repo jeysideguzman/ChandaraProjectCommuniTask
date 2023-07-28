@@ -1,6 +1,8 @@
 package com.jeysi.chandaraproject.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jeysi.chandaraproject.TheirProfileActivity;
 import com.jeysi.chandaraproject.models.ModelUser;
 import com.jeysi.chandaraproject.R;
 import com.squareup.picasso.Picasso;
@@ -42,6 +46,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
         String userImage = userList.get(i).getImage();
         String userName = userList.get(i).getName();
         String userEmail = userList.get(i).getEmail();
+        final String hisUID = userList.get(i).getUid();
 
         //set data
         myHolder.mNameTv.setText(userName);
@@ -61,6 +66,21 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, ""+userEmail, Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(new String[]{"Profile", ""}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0){
+                            //profile clicked
+                            Intent intent = new Intent(context, TheirProfileActivity.class);
+                            intent.putExtra("uid", hisUID);
+                            context.startActivity(intent);
+                        }
+
+                    }
+                });
+                builder.create().show();
             }
         });
 
