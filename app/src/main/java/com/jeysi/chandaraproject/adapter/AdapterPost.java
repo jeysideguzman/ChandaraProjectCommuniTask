@@ -45,7 +45,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder myHolder, int position) {
         //get data
         String uid = postList.get(position).getUid();
         String uEmail = postList.get(position).getuEmail();
@@ -64,14 +64,14 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
 
         // set data
-        holder.uNameTv.setText(uName);
-        holder.pTimeTv.setText(pTime);
-        holder.pTitleTv.setText(pTitle);
-        holder.pDescriptionTv.setText(pDescription);
+        myHolder.uNameTv.setText(uName);
+        myHolder.pTimeTv.setText(pTime);
+        myHolder.pTitleTv.setText(pTitle);
+        myHolder.pDescriptionTv.setText(pDescription);
 
         //set user dp
         try {
-            Picasso.get().load(uDp).placeholder(R.drawable.ic_face).into(holder.uPictureIv);
+            Picasso.get().load(uDp).placeholder(R.drawable.ic_face).into(myHolder.uPictureIv);
 
         }
         catch (Exception e){
@@ -83,11 +83,11 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
         if (pImage.equals("noImage")){
 
-            holder.pImageIv.setVisibility(View.GONE);
+            myHolder.pImageIv.setVisibility(View.GONE);
         }
         else {
             try {
-                Picasso.get().load(pImage).into(holder.pImageIv);
+                Picasso.get().load(pImage).into(myHolder.pImageIv);
 
             }
             catch (Exception e){
@@ -99,7 +99,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
 
         //handle buttons clicks
-        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //implement more features
@@ -107,7 +107,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             }
         });
 
-        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+        myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //implement more features
@@ -115,7 +115,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             }
         });
 
-        holder.commentBtn.setOnClickListener(new View.OnClickListener() {
+        myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //implement more features
@@ -123,7 +123,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             }
         });
 
-        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
+        myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //implement more features
@@ -157,7 +157,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             pImageIv = itemView.findViewById(R.id.pImageIv);
             uNameTv = itemView.findViewById(R.id.uNameTv);
             pTimeTv = itemView.findViewById(R.id.pTimeTv);
-            pTitleTv = itemView.findViewById(R.id.pTitleEt);
+            pTitleTv = itemView.findViewById(R.id.pTitleTv);
             pDescriptionTv = itemView.findViewById(R.id.pDescriptionTv);
             pLikesTv = itemView.findViewById(R.id.pLikesTv);
             moreBtn = itemView.findViewById(R.id.moreBtn);

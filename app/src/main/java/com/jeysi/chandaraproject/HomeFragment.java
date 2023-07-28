@@ -120,7 +120,6 @@ public class HomeFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //
                 postList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()){
                     ModelPost modelPost = ds.getValue(ModelPost.class);
@@ -130,7 +129,6 @@ public class HomeFragment extends Fragment {
                         postList.add(modelPost);
                     }
 
-                    postList.add(modelPost);
                     //adapter
                     adapterPost = new AdapterPost(getActivity(), postList);
                     //set adapter to rv
