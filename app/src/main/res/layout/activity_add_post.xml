@@ -17,7 +17,7 @@
             android:id="@+id/pTitleEt"
             android:background="@drawable/edittextstyle"
             android:padding="10dp"
-            android:hint="Enter title"
+            android:hint="Enter post title"
             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -35,7 +35,7 @@
             android:id="@+id/pDescriptionEt"
             android:background="@drawable/edittextstyle"
             android:padding="10dp"
-            android:hint="Enter description"
+            android:hint="Enter post description"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

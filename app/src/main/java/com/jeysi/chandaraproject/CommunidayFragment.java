@@ -1,7 +1,11 @@
 package com.jeysi.chandaraproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +36,8 @@ public class CommunidayFragment extends Fragment {
     private DatabaseReference databaseReference;
     private LinearLayout tasksLayout;
     private LinearLayout remindersLayout;
+
+    FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -120,5 +128,60 @@ public class CommunidayFragment extends Fragment {
     // Generate a unique identifier for each fragment instance using its hashCode
     private String getFragmentUniqueId() {
         return String.valueOf(hashCode());
+    }
+
+    /*inflate opt menu*/
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflate enu
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true); // to show menu option in fragment
+        super.onCreate(savedInstanceState);
+    }
+
+    private void checkUserStatus(){
+
+        //get user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+
+            //user stay signed in
+
+            //set email of logged in user
+            //mProfileTv.setText(user.getEmail());
+        } else {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+
+        }
+
+    }
+
+    /*hadle menu item click*/
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        //get item id
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
+        if (id == R.id.action_addpost) {
+            startActivity(new Intent(getActivity(), AddPostActivity.class));
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+
     }
 }

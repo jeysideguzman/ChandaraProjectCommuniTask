@@ -57,7 +57,6 @@ import java.util.HashMap;
 
 public class ProfileFragment extends Fragment {
 
-
     //firebase
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -66,7 +65,6 @@ public class ProfileFragment extends Fragment {
     StorageReference storageReference;
     //path where images will stored
     String storagePath = "Users_Profile_Cover_Imgs/";
-
     //views xml
     ImageView avatarTv, coverTv;
     TextView nameTv, emailTv, phonenoTv;
@@ -81,15 +79,10 @@ public class ProfileFragment extends Fragment {
     //ARRAYS PERMISSION
     String cameraPermissions[];
     String storagePermissions[];
-
     //uri of picked image
     Uri image_uri;
     //for checking profile or cove rpic
     String profileOrCoverPhoto;
-
-
-
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -335,7 +328,7 @@ public class ProfileFragment extends Fragment {
                     if (!checkStoragePermission()){
                         requestStoragePermission();
                     } else {
-                        pickFromCamera();
+                        pickFromGallery();
                     }
                 }
 
@@ -372,7 +365,7 @@ public class ProfileFragment extends Fragment {
 
                 if (grantResults.length > 0){
 
-                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
 
                     if (writeStorageAccepted){
                         pickFromGallery();
@@ -514,7 +507,6 @@ public class ProfileFragment extends Fragment {
     }
 
     /*inflate opt menu*/
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
@@ -530,7 +522,6 @@ public class ProfileFragment extends Fragment {
     }
 
     /*hadle menu item click*/
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
