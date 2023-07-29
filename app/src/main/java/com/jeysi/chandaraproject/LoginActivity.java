@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
         //set layout lineear layout
         LinearLayout linearLayout = new LinearLayout(this);
         //views to set dialog
-        EditText emailEt = new EditText(this);
+        final EditText emailEt = new EditText(this);
         emailEt.setHint("Email");
         emailEt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
@@ -308,7 +308,7 @@ public class LoginActivity extends AppCompatActivity {
                                 HashMap<Object, String> hashMap = new HashMap<>();
                                 //PUT INFO IN HASHMAP
                                 hashMap.put("email", email);
-                                hashMap.put("uid", "uid");
+                                hashMap.put("uid", uid);
                                 hashMap.put("name", ""); //will addlater(edit profile
                                 hashMap.put("phone", ""); //will addlater(edit profile
                                 hashMap.put("image", ""); //will addlater(edit profile

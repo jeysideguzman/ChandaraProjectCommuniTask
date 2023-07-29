@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else if (password.length()<6){
                     //set error and focus to passtxt
-                    mPasswordEt.setError("Password length must atleast 6 characters");
+                    mPasswordEt.setError("Password length must at least 6 characters");
                     mPasswordEt.setFocusable(true);
                 }
                 else {
@@ -120,11 +120,10 @@ public class RegisterActivity extends AppCompatActivity {
                             HashMap<Object, String> hashMap = new HashMap<>();
                             //PUT INFO IN HASHMAP
                             hashMap.put("email", email);
-                            hashMap.put("uid", "uid");
+                            hashMap.put("uid", uid);
                             hashMap.put("name", ""); //will addlater(edit profile
                             hashMap.put("phone", ""); //will addlater(edit profile
                             hashMap.put("image", ""); //will addlater(edit profile
-
                             hashMap.put("cover", ""); //will addlater(edit profile
 
                             //firebase database instance

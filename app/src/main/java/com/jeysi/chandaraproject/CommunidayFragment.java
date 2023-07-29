@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 public class CommunidayFragment extends Fragment {
 
     private CalendarView calendarView;
+    FirebaseUser user;
     private EditText editText;
     private Button button;
     private String stringDateSelected;
@@ -43,15 +44,19 @@ public class CommunidayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_communiday, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_communiday, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         init(view);
         clickListener();
         loadEvents();
+
+        checkUserStatus();
+        return view;
+
+
+
     }
 
     private void init(View view) {
@@ -136,6 +141,7 @@ public class CommunidayFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
         inflater.inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.action_search).setVisible(false); // hide add post btn
         super.onCreateOptionsMenu(menu, inflater);
     }
 

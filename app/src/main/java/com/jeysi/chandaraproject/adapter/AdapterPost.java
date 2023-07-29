@@ -31,6 +31,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.jeysi.chandaraproject.AddPostActivity;
 import com.jeysi.chandaraproject.R;
 import com.jeysi.chandaraproject.TheirProfileActivity;
 import com.jeysi.chandaraproject.models.ModelPost;
@@ -72,10 +73,10 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         String uEmail = postList.get(position).getuEmail();
         String uName = postList.get(position).getuName();
         String uDp = postList.get(position).getuDp();
-        String pId = postList.get(position).getpId();
+        final String pId = postList.get(position).getpId();
         String pTitle = postList.get(position).getpTitle();
         String pDescription = postList.get(position).getpDescr();
-        String pImage = postList.get(position).getpImage();
+        final String pImage = postList.get(position).getpImage();
         String pTimeStamp = postList.get(position).getpTime();
 
         //convert timestamp to dd/mm/yyyy
@@ -176,6 +177,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
             //add items in menu
             popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
+            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
         }
 
         //item click list
@@ -188,6 +190,15 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
                     //delete is clicked
                     beginDelete(pId, pImage);
                 }
+                else if (id == 1){
+                    //edit is clicked
+
+                    Intent intent = new Intent(context, AddPostActivity.class);
+                    intent.putExtra("key", "editPost");
+                    intent.putExtra("editPostId", pId);
+                    context.startActivity(intent);
+
+                }
                 return false;
             }
         });
@@ -195,6 +206,8 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         popupMenu.show();
 
     }
+
+
 
     private void beginDelete(String pId, String pImage) {
         //post can be with or without image
