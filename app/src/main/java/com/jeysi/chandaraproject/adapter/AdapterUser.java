@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -45,7 +44,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
         String userImage = userList.get(i).getImage();
         String userName = userList.get(i).getName();
-        String userEmail = userList.get(i).getEmail();
+        final String userEmail = userList.get(i).getEmail();
         final String hisUID = userList.get(i).getUid();
 
         //set data
@@ -65,22 +64,23 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ""+userEmail, Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(context, ""+userEmail, Toast.LENGTH_SHORT).show();
+                //show dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setItems(new String[]{"Profile", ""}, new DialogInterface.OnClickListener() {
+                builder.setItems(new String[]{"Profile"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0){
                             //profile clicked
                             Intent intent = new Intent(context, TheirProfileActivity.class);
-                            intent.putExtra("uid", hisUID);
+                            intent.putExtra("uid",hisUID);
                             context.startActivity(intent);
                         }
 
                     }
                 });
                 builder.create().show();
+
             }
         });
 
@@ -96,7 +96,6 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
 
         ImageView mavatarIv;
         TextView mNameTv, mEmailTv;
-
 
 
         public MyHolder(@NonNull View itemView) {
