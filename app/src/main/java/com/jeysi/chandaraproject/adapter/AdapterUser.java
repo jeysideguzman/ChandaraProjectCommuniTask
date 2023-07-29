@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.jeysi.chandaraproject.TheirProfileActivity;
 import com.jeysi.chandaraproject.models.ModelUser;
 import com.jeysi.chandaraproject.R;
@@ -26,9 +27,12 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
     Context context;
     List<ModelUser> userList;
 
+    String myUid;
+
     public AdapterUser(Context context, List<ModelUser> userList) {
         this.context = context;
         this.userList = userList;
+        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @NonNull
@@ -45,7 +49,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
         String userImage = userList.get(i).getImage();
         String userName = userList.get(i).getName();
         final String userEmail = userList.get(i).getEmail();
-        final String hisUID = userList.get(i).getUid();
+        final String uid = userList.get(i).getUid();
 
         //set data
         myHolder.mNameTv.setText(userName);
@@ -73,7 +77,7 @@ public class AdapterUser extends RecyclerView.Adapter<AdapterUser.MyHolder>{
                         if (which == 0){
                             //profile clicked
                             Intent intent = new Intent(context, TheirProfileActivity.class);
-                            intent.putExtra("uid",hisUID);
+                            intent.putExtra("uid",uid);
                             context.startActivity(intent);
                         }
 
