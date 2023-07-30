@@ -12,16 +12,24 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="332dp"
-            android:layout_height="37dp"
+            android:layout_width="308dp"
+            android:layout_height="51dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1title"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/food1header"/>
+        <ImageView
+            android:layout_width="253dp"
+            android:layout_height="135dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/food1img"/>
 
         <ImageView
-            android:layout_width="329dp"
-            android:layout_height="1400dp"
+            android:layout_width="315dp"
+            android:layout_height="1080dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/food1info"/>
 
 
     </LinearLayout>

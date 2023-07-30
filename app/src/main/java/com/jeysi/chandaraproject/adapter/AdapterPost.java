@@ -34,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jeysi.chandaraproject.AddPostActivity;
+import com.jeysi.chandaraproject.PostDetailActivity;
 import com.jeysi.chandaraproject.R;
 import com.jeysi.chandaraproject.TheirProfileActivity;
 import com.jeysi.chandaraproject.models.ModelPost;
@@ -89,6 +90,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         final String pImage = postList.get(position).getpImage();
         String pTimeStamp = postList.get(position).getpTime();
         String pLikes = postList.get(position).getpLikes();
+        String pComments = postList.get(position).getpComments();
 
         //convert timestamp to dd/mm/yyyy
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -102,6 +104,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDescription);
         myHolder.pLikesTv.setText(pLikes +" Likes");
+        myHolder.pCommentsTv.setText(pComments +" Comments");
 
         //set like for each post
         setLikes(myHolder, pId);
@@ -147,10 +150,10 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
         myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pLikes = Integer.parseInt(postList.get(myHolder.getAbsoluteAdapterPosition()).getpLikes());
+                final int pLikes = Integer.parseInt(postList.get(myHolder.getAbsoluteAdapterPosition()).getpLikes());
                 mProcessLike = true;
                 //GET ID OF THE POST CLICKED
-                String postIde = postList.get(myHolder.getAbsoluteAdapterPosition()).getpId();
+                final String postIde = postList.get(myHolder.getAbsoluteAdapterPosition()).getpId();
                 likesRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -188,7 +191,9 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             @Override
             public void onClick(View v) {
                 //implement more features
-                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PostDetailActivity.class);
+                intent.putExtra("postId", pId); // GET DETAIL OF POST
+                context.startActivity(intent);
             }
         });
 
@@ -252,8 +257,9 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             //add items in menu
             popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
             popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-        }
 
+        }
+        popupMenu.getMenu().add(Menu.NONE, 2, 0, "View Detail");
         //item click list
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -270,6 +276,14 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
                     Intent intent = new Intent(context, AddPostActivity.class);
                     intent.putExtra("key", "editPost");
                     intent.putExtra("editPostId", pId);
+                    context.startActivity(intent);
+
+                }
+                else if (id == 2){
+
+                    //implement more features
+                    Intent intent = new Intent(context, PostDetailActivity.class);
+                    intent.putExtra("postId", pId); // GET DETAIL OF POST
                     context.startActivity(intent);
 
                 }
@@ -379,7 +393,7 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
 
         //views from row_post.xml
         ImageView uPictureIv, pImageIv;
-        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv;
+        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn, shareBtn;
         LinearLayout profileLayout;
@@ -396,11 +410,13 @@ public class AdapterPost extends RecyclerView.Adapter<AdapterPost.MyHolder> {
             pTitleTv = itemView.findViewById(R.id.pTitleTv);
             pDescriptionTv = itemView.findViewById(R.id.pDescriptionTv);
             pLikesTv = itemView.findViewById(R.id.pLikesTv);
+            pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
             moreBtn = itemView.findViewById(R.id.moreBtn);
             likeBtn = itemView.findViewById(R.id.likeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
             shareBtn = itemView.findViewById(R.id.shareBtn);
             profileLayout = itemView.findViewById(R.id.profileLayout);
+
 
 
         }

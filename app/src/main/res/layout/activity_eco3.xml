@@ -12,16 +12,25 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="332dp"
-            android:layout_height="37dp"
+            android:layout_width="308dp"
+            android:layout_height="45dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1title"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/eco3header"/>
 
         <ImageView
-            android:layout_width="329dp"
-            android:layout_height="1400dp"
+            android:layout_width="261dp"
+            android:layout_height="152dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/eco3img"/>
+
+        <ImageView
+            android:layout_width="308dp"
+            android:layout_height="2209dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-15dp"
+            android:src="@drawable/eco3info"/>
 
 
     </LinearLayout>

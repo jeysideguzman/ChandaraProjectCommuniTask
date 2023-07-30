@@ -12,16 +12,24 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="332dp"
-            android:layout_height="37dp"
+            android:layout_width="280dp"
+            android:layout_height="51dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1title"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/gov1header"/>
 
         <ImageView
-            android:layout_width="329dp"
-            android:layout_height="1400dp"
+            android:layout_width="243dp"
+            android:layout_height="171dp"
             android:layout_gravity="center"
-            android:src="@drawable/infoeduc1"/>
+            android:layout_marginTop="20dp"
+            android:src="@drawable/gov1img"/>
+
+        <ImageView
+            android:layout_width="331dp"
+            android:layout_height="2119dp"
+            android:layout_gravity="center"
+            android:src="@drawable/gov1info"/>
 
 
     </LinearLayout>
