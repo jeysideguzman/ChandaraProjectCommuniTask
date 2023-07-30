@@ -1,5 +1,7 @@
 package com.jeysi.chandaraproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -20,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +31,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -44,8 +52,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AddPostActivity extends AppCompatActivity {
 
@@ -476,6 +488,8 @@ public class AddPostActivity extends AppCompatActivity {
                                 hashMap.put("pDescr", description);
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
+                                hashMap.put("pLikes", "0");
+                                hashMap.put("pComments", "0");
 
                                 //path to store post data
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
@@ -492,6 +506,15 @@ public class AddPostActivity extends AppCompatActivity {
                                                 descriptionEt.setText("");
                                                 imageIv.setImageURI(null);
                                                 image_uri = null;
+
+                                                //send notif
+                                                prepareNotification(
+                                                        ""+timeStamp,
+                                                        ""+name+"added new post",
+                                                        ""+title+"\n"+description,
+                                                        "PostNotification",
+                                                        "POST"
+                                                );
 
                                             }
                                         })
@@ -530,6 +553,8 @@ public class AddPostActivity extends AppCompatActivity {
             hashMap.put("pDescr", description);
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
+            hashMap.put("pLikes", "0");
+            hashMap.put("pComments", "0");
 
             //path to store post data
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
@@ -546,6 +571,15 @@ public class AddPostActivity extends AppCompatActivity {
                             descriptionEt.setText("");
                             imageIv.setImageURI(null);
                             image_uri = null;
+
+                            //send notif
+                            prepareNotification(
+                                    ""+timeStamp,
+                                    ""+name+"added new post",
+                                    ""+title+"\n"+description,
+                                    "PostNotification",
+                                    "POST"
+                            );
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -559,6 +593,77 @@ public class AddPostActivity extends AppCompatActivity {
                     });
         }
     }
+
+    private void prepareNotification(String pId, String title, String description, String notificationType, String notificationTopic){
+        //prepare data for notif
+
+        String NOTIFICATION_TOPIC = "/topics/" + notificationTopic; // topic must match with receiver
+        String NOTIFICATION_TITLE = title; // e.g. Jeysi added new post
+        String NOTIFICATION_MESSAGE = description; //CONTENT OF POST
+        String NOTIFICATION_TYPE = notificationType;
+
+        // prepare json what to send, where to send
+        JSONObject notificationJo = new JSONObject();
+        JSONObject notificationBodyJo = new JSONObject();
+
+        try {
+            //WHAT TO SEND
+            notificationBodyJo.put("notificationType", NOTIFICATION_TYPE);
+            notificationBodyJo.put("sender", uid); // uid of current user
+            notificationBodyJo.put("pId", pId); // post id
+            notificationBodyJo.put("pTitle", NOTIFICATION_TITLE);
+            notificationBodyJo.put("pDescription", NOTIFICATION_MESSAGE);
+
+            notificationBodyJo.put("to", NOTIFICATION_TOPIC); //WHERE TO SEND
+
+            notificationBodyJo.put("data", notificationBodyJo); //combine data
+            
+
+        } catch (JSONException e){
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        sendPostNotification(notificationJo);
+
+
+
+    }
+
+    private void sendPostNotification(JSONObject notificationJo) {
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", notificationJo,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("FCM_RESPONSE", "onResponse: "+response.toString());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //error occurred
+                        Toast.makeText(AddPostActivity.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
+                        
+                    }
+                })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                //PUT REQ HEADERS
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "key=AAAApywLDB0:APA91bET4VoDUNe8TNVyDx8c2Vfqzuks-yiwYVNJ-XsdOdUP5eaycF2DvKjNfV0ts7wcwcDUaIH44cj3ef-X6fRLV90PPCjs8Helc-RNMaeDpIMQ3jqu9-iO4LMvznpuMFwIFUlAxRh9"); // paste key here after "key="
+
+
+                return headers;
+            }
+        };
+        //volley
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
+    }
+
 
     private void showImagePickDialog() {
         //options camera gallery to show dialog

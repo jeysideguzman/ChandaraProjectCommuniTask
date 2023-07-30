@@ -206,7 +206,6 @@ public class InsightsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
         inflater.inflate(R.menu.menu_main, menu);
-        menu.findItem(R.id.action_addpost).setVisible(false); // hide add post btn
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -246,8 +245,13 @@ public class InsightsFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        if (id == R.id.action_addpost) {
+        else if (id == R.id.action_addpost) {
             startActivity(new Intent(getActivity(), AddPostActivity.class));
+
+        }
+        else if (id == R.id.action_settings) {
+            //go to settings act
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
 
         }
 

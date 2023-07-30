@@ -244,6 +244,11 @@ public class UsersFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
+        else if (id == R.id.action_settings) {
+            //go to settings act
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
+            
+        }
         return super.onOptionsItemSelected(item);
 
     }
