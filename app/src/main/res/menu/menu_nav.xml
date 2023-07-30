@@ -4,19 +4,22 @@
     <item android:id="@+id/nav_home"
         android:title="Home"
         android:icon="@drawable/homenavicon"/>
+
     <item android:id="@+id/nav_insights"
         android:title="Insights"
         android:icon="@drawable/nav_insights"/>
+
     <item android:id="@+id/nav_profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_profile_black"/>
+        android:title="Me"
+        android:icon="@drawable/img_1"/>
+
     <item android:id="@+id/nav_communiday"
         android:title="CommuniDay"
-        android:icon="@drawable/nav_comnudayicon"/>
+        android:icon="@drawable/img_2"/>
 
     <item android:id="@+id/nav_users"
         android:title="Users"
-        android:icon="@drawable/ic_users_black"/>
+        android:icon="@drawable/img_3"/>
 
 
 

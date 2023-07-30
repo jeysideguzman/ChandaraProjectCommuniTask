@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         checkUserStatus();
 
         //update token
-        updateToken(FirebaseMessaging.getInstance().getToken().getResult());
+
 
 
     }
@@ -140,7 +142,7 @@ public class DashboardActivity extends AppCompatActivity {
             editor.putString("Current_USERID", mUID);
             editor.apply();
 
-            //updateToken(FirebaseInstanceId.getInstance().getToken());
+            updateToken();
 
         } else {
             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
@@ -167,11 +169,28 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     //OPTIONAL(MESSAGING NOTIF)
-    public void updateToken(String token) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token mToken = new Token(token);
-        ref.child(mUID).setValue(mToken);
+    private void updateToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (task.isSuccessful()) {
+                            String token = task.getResult();
+                            // Save the token in the database for the current user
+                            // Add your code here to save the token to the database
+                            // You can use the mUID variable to get the current user's UID
+                            if (mUID != null) {
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+                                Token mToken = new Token(token);
+                                ref.child(mUID).setValue(mToken);
+                            }
+                        } else {
+                            // Handle the error if token retrieval fails
+                        }
+                    }
+                });
     }
+
 
     @Override
     protected void onResume() {

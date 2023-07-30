@@ -37,6 +37,7 @@ public class InsightsFragment extends Fragment {
 
     ImageButton edu1Btn;
     FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
     public InsightsFragment() {
         // Required empty public constructor
@@ -51,6 +52,9 @@ public class InsightsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_insights, container, false);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+
         // Find the button by its ID
         Button educ1Btn = view.findViewById(R.id.educ1Btn);
 
@@ -63,6 +67,7 @@ public class InsightsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        checkUserStatus();
 
         Button educ2Btn = view.findViewById(R.id.educ2Btn);
 
@@ -206,6 +211,8 @@ public class InsightsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
         inflater.inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_addpost).setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -245,10 +252,7 @@ public class InsightsFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        else if (id == R.id.action_addpost) {
-            startActivity(new Intent(getActivity(), AddPostActivity.class));
 
-        }
         else if (id == R.id.action_settings) {
             //go to settings act
             startActivity(new Intent(getActivity(), SettingsActivity.class));

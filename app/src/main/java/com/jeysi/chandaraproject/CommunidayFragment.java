@@ -141,6 +141,8 @@ public class CommunidayFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate enu
         inflater.inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_addpost).setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -179,10 +181,6 @@ public class CommunidayFragment extends Fragment {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
-        }
-        else if (id == R.id.action_addpost) {
-            startActivity(new Intent(getActivity(), AddPostActivity.class));
-
         }
         else if (id == R.id.action_settings) {
             //go to settings act
