@@ -3,9 +3,15 @@ package com.jeysi.chandaraproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -34,10 +40,16 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.jeysi.chandaraproject.adapter.AdapterComments;
+import com.jeysi.chandaraproject.models.ModelComment;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class PostDetailActivity extends AppCompatActivity {
@@ -54,6 +66,10 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageButton moreBtn;
     Button likeBtn, shareBtn;
     LinearLayout profileLayout;
+
+    RecyclerView recyclerView;
+    List<ModelComment> commentList;
+    AdapterComments adapterComments;
     //comments views
     EditText commentEt;
     ImageButton sendBtn;
@@ -66,7 +82,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         //actionbar and its properties
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Post Deatail");
+        actionBar.setTitle("Post Detail");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -88,6 +104,7 @@ public class PostDetailActivity extends AppCompatActivity {
         likeBtn = findViewById(R.id.likeBtn);
         shareBtn = findViewById(R.id.shareBtn);
         profileLayout = findViewById(R.id.profileLayout);
+        recyclerView = findViewById(R.id.recyclerView);
 
         commentEt = findViewById(R.id.commentEt);
         sendBtn = findViewById(R.id.sendBtn);
@@ -102,6 +119,8 @@ public class PostDetailActivity extends AppCompatActivity {
         //set subtitle of actionbar
 
         actionBar.setSubtitle("SignedIn as: "+myEmail);
+
+        loadComments();
 
         //send comment btn clcik
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +145,124 @@ public class PostDetailActivity extends AppCompatActivity {
 
             }
         });
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pTitle = pTitleTv.getText().toString().trim();
+                String pDescription = pDescriptionTv.getText().toString().trim();
+
+                //get image from iv
+                BitmapDrawable bitmapDrawable = (BitmapDrawable)pImageIv.getDrawable();
+                if (bitmapDrawable == null){
+                    //post without image
+                    shareTextOnly(pTitle, pDescription);
+
+                }else {
+                    //post with image
+
+                    //conver image to bitmap
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                    shareImageAndText(pTitle, pDescription, bitmap);
+
+                }
+            }
+        });
+    }
+
+    private void shareTextOnly(String pTitle, String pDescription) {
+        //
+        String shareBody = pTitle +"\n"+ pDescription;
+
+        //share intent
+        Intent sIntent = new Intent(Intent.ACTION_SEND);
+        sIntent.setType("text/plain");
+        sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here"); //in case you share via email app
+        sIntent.putExtra(Intent.EXTRA_TEXT, shareBody); //text to share
+        startActivity(Intent.createChooser(sIntent, "Share Via")); // message to show in dialog
+
+
+    }
+    private void shareImageAndText(String pTitle, String pDescription, Bitmap bitmap) {
+
+        //
+        String shareBody = pTitle +"\n"+ pDescription;
+
+        //save image in cache, get save uri
+        Uri uri = saveImageToShare(bitmap);
+
+        //share intent
+        Intent sIntent = new Intent(Intent.ACTION_SEND);
+        sIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+        sIntent.setType("image/png");
+        startActivity(Intent.createChooser(sIntent, "Share Via"));
+
+
+
+
+
+
+    }
+
+    private Uri saveImageToShare(Bitmap bitmap) {
+        File imageFolder = new File(getCacheDir(), "images");
+        Uri uri = null;
+        try {
+            imageFolder.mkdirs(); //create if not exists
+            File file = new File(imageFolder, "shared_image.png");
+            FileOutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(this, "com.jeysi.chandaraproject.fileprovider",
+                    file);
+
+        }
+        catch (Exception e){
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+        }
+        return uri;
+    }
+
+    private void loadComments() {
+        //layout for rv
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        //set lay0ut to rv
+        recyclerView.setLayoutManager(layoutManager);
+
+        //init coments list
+        commentList = new ArrayList<>();
+
+        //path of the post to get comments
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId).child("Comments");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                commentList.clear();
+                for (DataSnapshot ds: snapshot.getChildren()){
+                    ModelComment modelComment = ds.getValue(ModelComment.class);
+
+                    commentList.add(modelComment);
+
+                    //pass myuid and posid as param of constructor of comment adapter
+
+                    //setup adapter
+                    adapterComments = new AdapterComments(getApplicationContext(), commentList, myUid, postId);
+                    //set adapter
+                    recyclerView.setAdapter(adapterComments);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     private void showMoreOptions() {

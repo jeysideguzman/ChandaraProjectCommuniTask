@@ -1,5 +1,6 @@
 package com.jeysi.chandaraproject.adapter;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jeysi.chandaraproject.R;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
 
@@ -32,6 +35,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         Event event = eventList.get(position);
         holder.dateTextView.setText(event.getDate());
         holder.descriptionTextView.setText(event.getDescription());
+
     }
 
     @Override
