@@ -3,7 +3,6 @@ package com.jeysi.chandaraproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.browser.trusted.Token;
 import androidx.fragment.app.FragmentTransaction;
 
 
@@ -20,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.jeysi.chandaraproject.notifications.Token;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -27,7 +28,6 @@ public class DashboardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ActionBar actionBar;
     String mUID;
-    String mToken;
 
 
 
@@ -56,7 +56,12 @@ public class DashboardActivity extends AppCompatActivity {
 
         checkUserStatus();
 
+        //update token
+        updateToken(FirebaseMessaging.getInstance().getToken().getResult());
+
+
     }
+
     private BottomNavigationView.OnItemSelectedListener selectedListener =
             new BottomNavigationView.OnItemSelectedListener() {
                 @Override
@@ -158,10 +163,13 @@ public class DashboardActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /*inflate opt menu*/
+
+
     //OPTIONAL(MESSAGING NOTIF)
     public void updateToken(String token) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
-        //Token mToken = new Token(token);
+        Token mToken = new Token(token);
         ref.child(mUID).setValue(mToken);
     }
 
@@ -169,5 +177,19 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onResume() {
         checkUserStatus();
         super.onResume();
+    }
+    /*hadle menu item click*/
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        //get item id
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
